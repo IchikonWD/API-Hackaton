@@ -22,7 +22,8 @@ const getFile = asyncHandler(async (req, res, next) => {
       acc += curr;
       return acc;
     });
-
+    const uploadedFile = req.body;
+    console.log(uploadedFile);
     // const receivedFile = req.body;
     // const receivedFileData = receivedFile.reduce((acc, curr) => {
     //   acc += curr;
