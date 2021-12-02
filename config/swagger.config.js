@@ -37,6 +37,7 @@ const swaggerDocument = {
             in: 'formData',
             description: 'File to be processed',
             required: true,
+            type: 'file',
           },
         ],
         responses: {

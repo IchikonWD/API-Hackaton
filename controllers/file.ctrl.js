@@ -16,22 +16,35 @@ const testRoute = asyncHandler(async (req, res, next) => {
 //@route: POST /api/v1/file
 //@access: Public
 
-const getFile = asyncHandler(async (req, res, next) => {
+const getFile = asyncHandler(async (req, res) => {
   try {
-    const data = testData.reduce((acc, curr) => {
-      acc += curr;
-      return acc;
+    const uploadedFile = req.body.data;
+    const testingData = testData.map((item) => {
+      return item;
     });
-    const uploadedFile = req.body;
-    console.log(uploadedFile);
-    // const receivedFile = req.body;
-    // const receivedFileData = receivedFile.reduce((acc, curr) => {
-    //   acc += curr;
-    //   return acc;
-    // });
-    // const sum = data + receivedFileData;
+    const uploadedData = uploadedFile.map((item) => {
+      return item;
+    });
 
-    // const finalResult = Math.power(sum, 2) / receivedFile.length;
+    // Subtract uploadedData in data
+    const absSubtract = (arr1, arr2) => {
+      return arr2.map(function (el, i) {
+        return Math.abs(el - arr1[i]);
+      });
+    };
+    const subtraction = absSubtract(testingData, uploadedData);
+
+    const powCalc = (arr) => {
+      return arr.map((item) => {
+        return Math.pow(item, 2);
+      });
+    };
+    const power = powCalc(subtraction);
+
+    const reduced = power.reduce((a, b) => a + b, 0);
+    const long = testData.length;
+    const result = reduced / long;
+    const data = result.toFixed(2);
 
     res.status(200).json({
       success: true,
